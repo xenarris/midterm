@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Midterm Survey</title>
+</head>
+<body>
+<h1>Midterm Survey</h1>
+
+<form>
+    <label for="name">Name</label>
+    <input type="text" id="name">
+
+    <br>
+    <br>
+
+    <label>Check all that apply: </label>
+    <br>
+    <br>
+
+    <repeat group="{{ @survey }}" value="{{ @option }}">
+        <label><input type="checkbox" name="survey[]" value="{{ @option }}"
+        > {{ ucfirst(@option) }}</label><br>
+    </repeat>
+    <check if="{{ isset(@errors['opt']) }}">
+        <span class="err">{{ @errors['opt'] }}</span>
+    </check>
+
+    <br>
+
+    <input type="submit" value="Submit">
+
+</form>
+
+</body>
+</html>
