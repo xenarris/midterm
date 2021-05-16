@@ -30,12 +30,29 @@ $f3 -> route('GET|POST /survey', function($f3) {
 
     //if post
     if($_SERVER['REQUEST_METHOD'] == 'POST') {
-        //var_dump($_POST);
-        $_SESSION['name'] = $_POST['name'];
-        $_SESSION['survey'] = implode(", ", $_POST['survey']);
 
+        if ($_POST['name'] != "" || $_POST['name'] != null) {
+            $_SESSION['name'] = $_POST['name'];
+            $validName = true;
+        }
+        else {
+            $validName = false;
+            $f3->set('errors[name]', 'Name cannot be empty');
+        }
 
-        header('location: summary');
+        if (!empty($_POST['survey'])) {
+            $_SESSION['survey'] = implode(", ", $_POST['survey']);
+            $validSurvey = true;
+        }
+        else {
+            $validSurvey = false;
+            $f3->set('errors[opt]', 'Please select at least one option!');
+        }
+
+        if ($validName && $validSurvey) {
+            header('location: summary');
+        }
+
     }
 
 
